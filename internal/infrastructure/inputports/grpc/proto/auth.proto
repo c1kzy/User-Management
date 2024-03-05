@@ -1,0 +1,37 @@
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/empty.proto";
+
+package authService;
+
+option go_package = "/auth";
+
+message User {
+  int32 ID = 1;
+  string first_name = 2;
+  string last_name = 3;
+  string email = 4;
+  string  password = 5;
+  int32 role = 6;
+  google.protobuf.Timestamp created_at = 7;
+  google.protobuf.Timestamp updated_at = 8;
+  string oid = 9;
+  int32 status = 10;
+}
+
+
+message SignInRequest {
+  string email = 1;
+  string password = 2;
+}
+
+message LoginResponse {
+  string token = 1;
+}
+
+
+service authService {
+  rpc SignUp(User) returns (google.protobuf.Empty);
+  rpc SignIn(SignInRequest) returns (LoginResponse);
+}

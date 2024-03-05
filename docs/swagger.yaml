@@ -1,0 +1,430 @@
+basePath: /
+definitions:
+  domain.Post:
+    properties:
+      created_at:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      oID:
+        type: string
+      status:
+        type: integer
+      text:
+        type: string
+      updated_at:
+        type: string
+      user_id:
+        type: integer
+      vote_sum:
+        type: integer
+    type: object
+  domain.PublicPost:
+    properties:
+      id:
+        type: integer
+      name:
+        type: string
+      text:
+        type: string
+    type: object
+  domain.User:
+    properties:
+      created_at:
+        type: string
+      email:
+        type: string
+      first_name:
+        type: string
+      id:
+        type: integer
+      last_name:
+        type: string
+      oID:
+        type: string
+      password:
+        type: string
+      role:
+        type: integer
+      status:
+        type: integer
+      updated_at:
+        type: string
+    type: object
+  domain.UserRating:
+    properties:
+      id:
+        type: integer
+      vote:
+        type: integer
+    type: object
+  handlers.errResponse:
+    properties:
+      message:
+        type: string
+    type: object
+  handlers.signInInput:
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  description: API Server for user and profiles management
+  title: UserInput Management API
+  version: "1.0"
+paths:
+  /api/users/:id:
+    delete:
+      consumes:
+      - application/json
+      description: delete user
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/handlers.errResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/handlers.errResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/handlers.errResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/handlers.errResponse'
+        default:
+          description: ""
+          schema:
+            $ref: '#/definitions/handlers.errResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: DeleteUser
+      tags:
+      - users
+    put:
+      consumes:
+      - application/json
+      description: update user
+      parameters:
+      - description: user info
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/domain.User'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/handlers.errResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/handlers.errResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/handlers.errResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/handlers.errResponse'
+        default:
+          description: ""
+          schema:
+            $ref: '#/definitions/handlers.errResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: UpdateUser
+      tags:
+      - users
+  /api/users/posts/:
+    get:
+      consumes:
+      - application/json
+      description: get public posts
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/domain.PublicPost'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/handlers.errResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/handlers.errResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/handlers.errResponse'
+        default:
+          description: ""
+          schema:
+            $ref: '#/definitions/handlers.errResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: ListPosts
+      tags:
+      - posts
+    post:
+      consumes:
+      - application/json
+      description: create post
+      parameters:
+      - description: post info
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/domain.Post'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/handlers.errResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/handlers.errResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/handlers.errResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/handlers.errResponse'
+        default:
+          description: ""
+          schema:
+            $ref: '#/definitions/handlers.errResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: CreatePost
+      tags:
+      - posts
+  /api/users/posts/:id:
+    delete:
+      consumes:
+      - application/json
+      description: delete post
+      parameters:
+      - description: post info
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/domain.Post'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/handlers.errResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/handlers.errResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/handlers.errResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/handlers.errResponse'
+        default:
+          description: ""
+          schema:
+            $ref: '#/definitions/handlers.errResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: DeletePost
+      tags:
+      - posts
+    put:
+      consumes:
+      - application/json
+      description: update post
+      parameters:
+      - description: post info
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/domain.Post'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/handlers.errResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/handlers.errResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/handlers.errResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/handlers.errResponse'
+        default:
+          description: ""
+          schema:
+            $ref: '#/definitions/handlers.errResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: UpdatePost
+      tags:
+      - posts
+  /api/users/posts/:id/vote:
+    post:
+      consumes:
+      - application/json
+      description: user vote
+      parameters:
+      - description: vote info
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/domain.UserRating'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/handlers.errResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/handlers.errResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/handlers.errResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/handlers.errResponse'
+        default:
+          description: ""
+          schema:
+            $ref: '#/definitions/handlers.errResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: UserVote
+      tags:
+      - votes
+  /auth/sign-in:
+    post:
+      consumes:
+      - application/json
+      description: login
+      operationId: login
+      parameters:
+      - description: credentials
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/handlers.signInInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: token
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/handlers.errResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/handlers.errResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/handlers.errResponse'
+        default:
+          description: ""
+          schema:
+            $ref: '#/definitions/handlers.errResponse'
+      summary: SignIn
+      tags:
+      - auth
+  /auth/sign-up:
+    post:
+      consumes:
+      - application/json
+      description: create account
+      operationId: create-account
+      parameters:
+      - description: account info
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/domain.User'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: user created
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/handlers.errResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/handlers.errResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/handlers.errResponse'
+        default:
+          description: ""
+          schema:
+            $ref: '#/definitions/handlers.errResponse'
+      summary: SignUp
+      tags:
+      - auth
+securityDefinitions:
+  apiKeyAuth:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"
